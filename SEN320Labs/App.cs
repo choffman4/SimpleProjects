@@ -53,8 +53,6 @@ namespace SEN320Labs
             int validInteger;
             string consoleInput;
 
-            hello
-
             while(true)
             {
                 Console.WriteLine(prompt);
@@ -127,6 +125,7 @@ namespace SEN320Labs
 
         private void DecryptCipherText()
         {
+            PrintLineSeperator();
             Console.WriteLine("Decrypt Cipher Text. Please enter your cipher text.");
             string secretText = GetValidStringInputFromUser("Cipher Text");
             Console.WriteLine("Enter your secret key.");
@@ -137,6 +136,7 @@ namespace SEN320Labs
 
         private void EncryptPlainText()
         {
+            PrintLineSeperator();
             Console.WriteLine("Encrypt Plain Text. Please enter your plain text.");
             string plainText = GetValidStringInputFromUser("Plain Text: ");
             Console.WriteLine("Enter your secret key.");
