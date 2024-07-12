@@ -13,9 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DynamoDBLibrary\DatabaseLibrary.csproj" />
-    <ProjectReference Include="..\EncryptDecryptLibrary\EncryptDecryptLibrary.csproj" />
+    <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj" />
     <ProjectReference Include="..\SaltedHashLibrary\SaltedHashLibrary.csproj" />
+    <ProjectReference Include="..\XORCipherLibrary\XORCipherLibrary.csproj" />
   </ItemGroup>
 
 </Project>
