@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DatabaseLibrary\DatabaseLibrary.csproj" />
+    <ProjectReference Include="..\DatabaseLibrary\DynamodbLibrary.csproj" />
     <ProjectReference Include="..\SaltedHashLibrary\SaltedHashLibrary.csproj" />
     <ProjectReference Include="..\XORCipherLibrary\XORCipherLibrary.csproj" />
   </ItemGroup>

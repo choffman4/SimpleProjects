@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEN320Labs", "SEN320Labs/SEN320Labs.csproj", "{26C49CBD-71AF-4F2F-AC76-AA927E9055D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SEN320Labs", "SEN320Labs\SEN320Labs.csproj", "{26C49CBD-71AF-4F2F-AC76-AA927E9055D9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaltedHashLibrary", "SaltedHashLibrary/SaltedHashLibrary.csproj", "{9250E29B-A905-46E4-8B8C-7B2AF7D63379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SaltedHashLibrary", "SaltedHashLibrary\SaltedHashLibrary.csproj", "{9250E29B-A905-46E4-8B8C-7B2AF7D63379}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseLibrary", "DatabaseLibrary/DatabaseLibrary.csproj", "{74784B08-B7DA-4676-B166-9DC955351EA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamodbLibrary", "DatabaseLibrary\DynamodbLibrary.csproj", "{74784B08-B7DA-4676-B166-9DC955351EA9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XORCipherLibrary", "XORCipherLibrary/XORCipherLibrary.csproj", "{10840121-D77E-4252-9C40-F3B3C667D70F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XORCipherLibrary", "XORCipherLibrary\XORCipherLibrary.csproj", "{10840121-D77E-4252-9C40-F3B3C667D70F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
