@@ -4,6 +4,7 @@ namespace SaltedHashLibrary.BusinessLogic
 {
     public interface IHashService
     {
-        SHA256SaltedHash SHA256SaltedHash(string password);
+        (string SaltedHash, string Salt) GenerateSaltedHash(string password);
+        string GenerateSaltedHash(string password, string? salt);
     }
 }

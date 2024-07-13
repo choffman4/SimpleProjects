@@ -1,20 +1,22 @@
 ﻿using Microsoft.Extensions.Logging;
-using SaltedHashLibrary.BusinessLogic;
 using EncryptDecryptLibrary.BusinessLogic;
 using System;
+using DynamodbLibrary.BusinessLogic;
+using SEN320Labs.Models;
+using System.Diagnostics.Metrics;
 
 namespace SEN320Labs
 {
     public class App
     {
-        private readonly IHashService _hashService;
+        private readonly IUserService _userService;
         private readonly IXORCipher _xORService;
         private readonly ILogger<App> _logger;
 
-        public App(IHashService hashService, IXORCipher xORService, ILogger<App> logger)
+        public App(IUserService userService, IXORCipher xORService, ILogger<App> logger)
         {
             _logger = logger;
-            _hashService = hashService;
+            _userService = userService;
             _xORService = xORService;
 
             _logger.LogInformation("App created successfully.");
@@ -22,25 +24,30 @@ namespace SEN320Labs
         
         public void Run()
         {
-            PrintLineSeperator();
-            Console.WriteLine("Welcome to Connors SEN320 overkill Lab Projects and Libraries!");
-            int userInput = GetValidIntegerInputFromUser("Enter a number: [0-1]\n\n0: Quit Console Application\n1: SaltYourCredentialHashL1\n2: XORCipher", 0, 2);
+            bool applicationRunning = true;
 
-            switch (userInput)
+            while(applicationRunning)
             {
-                case 0:
-                    Environment.Exit(0);
-                    break;
-                case 1:
-                    SaltYourCredentialHashLab1();
-                    break;
-                case 2:
-                    XOREncryptionExcercise();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input. Please enter a valid integer.");
-                    break;
+                PrintLineSeperator();
+                Console.WriteLine("Welcome to Connors SEN320 overkill Lab Projects and Libraries!");
+                int userInput = GetValidIntegerInputFromUser("Enter a number: [0-2]\n\n0: Quit Console Application\n1: SaltYourCredentialHashL1\n2: XORCipher", 0, 2);
+                switch (userInput)
+                {
+                    case 0:
+                        applicationRunning = false;
+                        break;
+                    case 1:
+                        SaltYourCredentialHashLab1();
+                        break;
+                    case 2:
+                        XOREncryptionExcercise();
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. Please enter a valid integer.");
+                        break;
+                }
             }
+            Environment.Exit(0);
         }
 
         private void PrintLineSeperator()
@@ -91,18 +98,114 @@ namespace SEN320Labs
             }
         }
 
+        private string GetValidPasswordInputFromUser(string prompt)
+        {
+            string consoleInput;
+
+            while (true)
+            {
+                Console.WriteLine(prompt);
+                consoleInput = Console.ReadLine();
+
+                if (!string.IsNullOrEmpty(consoleInput) && ValidPassword(consoleInput))
+                {
+                    return consoleInput;
+                } else
+                {
+                    Console.WriteLine("\nPassword must be at least 8 characters long and contain at least 1 specials, 1 numbers, and 1 upper case.");
+                }
+            }
+        }
+
+        private bool ValidPassword(string consoleInput)
+        {
+            int specialCount = 0;
+            int numberCount = 0;
+            int upperCaseCount = 0;
+
+            foreach (char c in consoleInput)
+            {
+                if (char.IsUpper(c))
+                {
+                    upperCaseCount++;
+                }
+                else if (char.IsDigit(c))
+                {
+                    numberCount++;
+                }
+                else if (char.IsPunctuation(c))
+                {
+                    specialCount++;
+                }
+            }
+            if (specialCount >= 1 && numberCount >= 1 && upperCaseCount >= 1 && consoleInput.Length >= 8)
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         private void SaltYourCredentialHashLab1()
         {
-            // get password from user
+            bool saltyourCredentialHashLabRunning = true;
+            
             PrintLineSeperator();
-            Console.WriteLine("Please enter a password to hash.");
-            string password = GetValidStringInputFromUser("Password: ");
+            Console.WriteLine("SaltYourCredentialHashLab1. Please select an option.");
+            while (saltyourCredentialHashLabRunning)
+            {
+                int userInput = GetValidIntegerInputFromUser("Enter a number: [0-4]\n\n0: Exit\n1: Create User\n2: Validate User\n3: Update User\n4: Delete User", 0, 4);
+                switch (userInput)
+                {
+                    case 0:
+                        saltyourCredentialHashLabRunning = false;
+                        break;
+                    case 1:
+                        ChooseActionThenGetUsernameAndPassword(1);
+                        break;
+                    case 2:
+                        ChooseActionThenGetUsernameAndPassword(2);
+                        break;
+                    case 3:
+                        ChooseActionThenGetUsernameAndPassword(3);
+                        break;
+                    case 4:
+                        ChooseActionThenGetUsernameAndPassword(4);
+                        break;
+                }
+            }
+        }
 
-            // create SHA256SaltedHash object
-            var saltedHash = _hashService.SHA256SaltedHash(password);
-            Console.WriteLine($"\nHash: {saltedHash.GetHash()}, Salt: {saltedHash.GetSalt()}");
-
-            // store the hash and salt in a relational database
+        private void ChooseActionThenGetUsernameAndPassword(int option)
+        {
+            string username = GetValidStringInputFromUser("Enter your username: ");
+            string password = "";
+            if (option == 1)
+            {
+                Console.WriteLine("Password must be at least 8 characters long and contain at least 1 specials, 1 numbers, and 1 upper case.");
+                password = GetValidPasswordInputFromUser("Enter your password: ");
+            } else
+            {
+                password = GetValidStringInputFromUser("Enter your password: ");
+            }
+            
+            
+            switch(option)
+            {
+                case 1:
+                    _userService.CreateAccountAsync(username, password).Wait();
+                    break;
+                case 2:
+                    _userService.ValidateUserCredentialsAsync(username, password).Wait();
+                    break;
+                case 3:
+                    _userService.UpdatePasswordAsync(username, password, GetValidPasswordInputFromUser("Enter your new password: ")).Wait();
+                    break;
+                case 4:
+                    _userService.DeleteUserAsync(username, password).Wait();
+                    break;
+            }
+            PrintLineSeperator();
         }
 
         private void XOREncryptionExcercise()
@@ -120,7 +223,6 @@ namespace SEN320Labs
                     DecryptCipherText();
                     break;
             }
-            Run();
         }
 
         private void DecryptCipherText()

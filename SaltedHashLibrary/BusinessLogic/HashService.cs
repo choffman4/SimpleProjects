@@ -3,32 +3,26 @@ using Microsoft.Extensions.Logging;
 
 namespace SaltedHashLibrary.BusinessLogic
 {
-    public class HashService : IHashService
+    public class HashService : HashServiceBase, IHashService
     {
         private readonly ILogger<HashService> _logger;
 
-        public HashService(ILogger<HashService> logger)
+        public HashService(ILogger<HashService> logger) : base(logger)
         {
             _logger = logger;
             _logger.LogInformation("HashService created successfully.");
         }
 
-        public SHA256SaltedHash SHA256SaltedHash(string password)
+        public (string SaltedHash, string Salt) GenerateSaltedHash(string password)
         {
-            try
-            {
-                _logger.LogDebug("Creating SHA256SaltedHash...");
+            string salt = GenerateRandomSalt();
+            string saltedHash = GenerateHash(password, salt);
+            return (saltedHash, salt);
+        }
 
-                SHA256SaltedHash saltedHash = new SHA256SaltedHash(password, _logger);
-
-                _logger.LogDebug("SHA256SaltedHash created successfully.");
-
-                return saltedHash;
-            } catch (Exception ex)
-            {
-                _logger.LogError($"Error creating SHA256SaltedHash: {ex.Message}");
-                throw;
-            }
+        public string GenerateSaltedHash(string password, string salt)
+        {
+            return GenerateHash(password, salt);
         }
     }
 }
