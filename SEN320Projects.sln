@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XORCipherLibrary", "XORCiph
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamodbLibrary", "DynamodbLibrary\DynamodbLibrary.csproj", "{72F4666F-6F96-4AAD-B095-E20411197E94}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AESEncryption", "AESEncryption\AESEncryption.csproj", "{B3CC70D4-1A0F-40FD-933F-963DCF15F78A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{72F4666F-6F96-4AAD-B095-E20411197E94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72F4666F-6F96-4AAD-B095-E20411197E94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72F4666F-6F96-4AAD-B095-E20411197E94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3CC70D4-1A0F-40FD-933F-963DCF15F78A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3CC70D4-1A0F-40FD-933F-963DCF15F78A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3CC70D4-1A0F-40FD-933F-963DCF15F78A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3CC70D4-1A0F-40FD-933F-963DCF15F78A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

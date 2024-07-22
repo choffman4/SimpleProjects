@@ -1,0 +1,9 @@
+https://slproweb.com/products/Win32OpenSSL.html
+Install Win64 OpenSSL v3.3.1, Update Path Environment Variable (C:\Program Files\OpenSSL-Win64\bin)
+
+
+Generate Public Key: openssl genrsa -out privatekey.pem 2048
+Generate Private Key: openssl rsa -in privatekey.pem -pubout -out publickey.pem
+
+publickey.pem
+privatekey.pem
